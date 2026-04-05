@@ -21,7 +21,8 @@
 - **Fail-safe 機制：** 具備完善的 Log 日誌系統與異常處理，當政府 API 格式異動時會主動發送警告。
 
 ## 📸 運作截圖
-> (此處可以貼上你 Discord 收到訊息的截圖，會非常有說服力！)
+> <img width="945" height="687" alt="image" src="https://github.com/user-attachments/assets/cae85c19-bc83-4091-ac42-6ae94125b06c" />
+
 
 ## ⚙️ 環境設定
 1. 在 GitHub Secrets 中設定 `DISCORD_WEBHOOK`。
