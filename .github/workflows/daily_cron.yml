@@ -1,27 +1,23 @@
-name: Overtime Notification
+name: Overtime-Oracle-Daily-Job
 
 on:
   schedule:
-    # 這是 Cron 語法：每個月 1 號的凌晨 0 點 (UTC) 執行
-    - cron: '0 0 1 * *' 
-  workflow_dispatch: # 允許你手動點擊執行測試
+    # 每天台灣時間早上 9:00 執行 (UTC 01:00)
+    - cron: '0 1 * * *' 
+  workflow_dispatch: # 保留手動觸發
 
 jobs:
-  build:
+  run-script:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-
       - name: Install dependencies
         run: pip install -r requirements.txt
-
-      - name: Run script
+      - name: Run Oracle
         env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }} # 安全存取 Webhook URL
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: python src/main.py
