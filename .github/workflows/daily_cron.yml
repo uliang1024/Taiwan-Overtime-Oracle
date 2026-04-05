@@ -1,10 +1,16 @@
-name: Overtime-Oracle-Daily-Job
+name: Overtime-Oracle-Combined-Job
 
 on:
   schedule:
-    # 每天台灣時間早上 9:00 執行 (UTC 01:00)
+    # 1. 每個月 1 號的台灣時間早上 9:00 (UTC 01:00)
+    # 負責發送當月的「完整攻略」
+    - cron: '0 1 1 * *' 
+    
+    # 2. 每天的台灣時間早上 9:00 (UTC 01:00)
+    # 負責發送「今日加班提醒」
     - cron: '0 1 * * *' 
-  workflow_dispatch: # 保留手動觸發
+    
+  workflow_dispatch: # 依然保留手動按鈕，方便測試
 
 jobs:
   run-script:
