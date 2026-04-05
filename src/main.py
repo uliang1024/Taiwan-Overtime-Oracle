@@ -25,18 +25,18 @@ def main():
     
     if strategy["gold"]:
         msg.append("\n💰 **【五星級金礦】(雙倍薪/不計上限)**")
-        for d in strategy["gold"]:
-            msg.append(f"• {d.strftime('%m/%d')} - 建議報滿 8 小時")
-            
-    if strategy["silver"]:
-        msg.append("\n🥈 **【優質礦脈】(休息日/高費率)**")
-        # 取前三個週六
-        for d in strategy["silver"][:3]:
-            msg.append(f"• {d.strftime('%m/%d')} - 建議報 10 小時")
-            
-    msg.append("\n💡 *其餘時數建議由平日加班補足至 46 小時。*")
-    msg.append(f"\n> 祝開發順利，ERP 手冊早日收工！")
+        for item in strategy["gold"]:
+            msg.append(f"• {item['date'].strftime('%m/%d')} ({item['name']}) - 報 8 小時")
 
+    if strategy["silver"]:
+        msg.append("\n🥈 **【每週精選】(本週六最划算)**")
+        msg.append("這幾天建議挑一天報 10 小時：")
+        for d in strategy["silver"]:
+            # 如果這天剛好跟金礦重複了就不顯示
+            if any(g['date'] == d for g in strategy['gold']): continue
+            msg.append(f"• {d.strftime('%m/%d')} (週六休息日) - 報 10 小時")
+
+    msg.append("\n💡 *其餘時數建議由平日加班補足至 46 小時。*")
     send_to_discord("\n".join(msg))
 
 if __name__ == "__main__":
