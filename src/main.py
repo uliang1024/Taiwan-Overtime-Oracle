@@ -23,7 +23,11 @@ def main():
     # 建立 Discord 訊息
     msg = [f"🚀 **{year}年{month}月 加班賺錢攻略**"]
     
-    if strategy["gold"]:
+    if not strategy["gold"]:
+        # 這裡發送警告，但依然提供週六的建議
+        msg.append("\n⚠️ **注意：本月系統未偵測到國定假日/補假！**")
+        msg.append("> 請確認政府 API 網址是否異動，或本月確實無國定假日。")
+    else:
         msg.append("\n💰 **【五星級金礦】(雙倍薪/不計上限)**")
         for item in strategy["gold"]:
             msg.append(f"• {item['date'].strftime('%m/%d')} ({item['name']}) - 報 8 小時")
