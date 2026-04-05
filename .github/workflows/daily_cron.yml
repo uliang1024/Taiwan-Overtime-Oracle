@@ -1,0 +1,27 @@
+name: Overtime Notification
+
+on:
+  schedule:
+    # 這是 Cron 語法：每個月 1 號的凌晨 0 點 (UTC) 執行
+    - cron: '0 0 1 * *' 
+  workflow_dispatch: # 允許你手動點擊執行測試
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run script
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }} # 安全存取 Webhook URL
+        run: python src/main.py
